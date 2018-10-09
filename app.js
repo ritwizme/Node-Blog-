@@ -55,6 +55,11 @@ app.get('/ideas/add',(req, res)=>{
     res.render('ideas/add');
 });
 
+
+
+
+
+
 //proces form
 app.post('/ideas', (req, res) =>{
     let errors = [];
@@ -72,7 +77,17 @@ app.post('/ideas', (req, res) =>{
         });
     }
     else{
-        res.send('passed');
+            const newUser = {
+                title: req.body.title,
+                details: req.body.details,
+
+            }   
+            new Idea(newUser)
+            .save()
+            .then(idea => {
+                res.redirect('/ideas');
+                        })
+
     }
     //console.log(req.body);
     //res.send(req.body.title);
