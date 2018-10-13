@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const exphbs  = require('express-handlebars');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
@@ -43,6 +44,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json());
 
+//Static folder
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 //Method Override middleware
 app.use(methodOverride('_method'));
 
@@ -62,7 +68,7 @@ app.use(session({
 
 app.use(function(req, res, next){
     res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg_msg = req.flash('rerror_msg');
+    res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     next();
 });
