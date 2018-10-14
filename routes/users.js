@@ -20,6 +20,15 @@ router.get('/register', (req, res) => {
     res.render('users/register');
 });
 
+//Login form POST
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+      successRedirect:'/ideas',
+      failureRedirect: '/users/login',
+      failureFlash: true
+    })(req, res, next);
+  });
+
 //Reegister form POST
 router.post('/register', (req, res) =>{
  let errors = [];
